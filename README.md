@@ -30,7 +30,9 @@ You can use the VirtualBox GUI as you are used to, from now on.
 
 
 
-**Use the qemu box: launch the Debian arm64 system on qemu**
+**\
+\
+Use the qemu box: launch the Debian arm64 system on qemu**
 
 Within VirtualBox, open a terminal and launch the qemu emulation (as vagrant user):
 
@@ -50,3 +52,26 @@ For booting the Debian arm64 system, on the qemu efi terminal give:
 Log in as root (password: *password*) and you are ready to live-build.
 
 ![debian arm](vbqemu.setup/img/debian.arm.png)
+
+**\
+\
+Prepare the qemu system for the live building (setup once)**
+
+A patched live-build is needed for a correct live-building. The .deb package of live-build patched by our Team has been already copied onto the vbox system, so now we have to copy and install it onto the qemu system.
+
+On the qemu system we "start the network" and add a user to perform ssh/scp:
+ - *dhclient*
+ - *adduser service*
+ - (alternatively, modify the sshd config file for root to be able to accept ssh connections with a simple password)
+
+Now on the vbox system:
+ - *scp -P 10022 /home/vagrant/live-build2019031131_all.deb service@127.0.0.1:/tmp*
+
+Finally, on the qemu host:
+ - *dpkg -i /tmp/live-build2019031131_all.deb; apt install -fy*
+
+**\
+\
+Live build: create a ISO for a generic live Debian arm64 system**
+
+[...]
