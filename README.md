@@ -78,6 +78,8 @@ Live building a minimal OS is now trivial:
 
     mkdir live
     cd live/
+    
+    dhclient
 
-    lb config --distribution buster --debian-installer-distribution daily
+    lb config --distribution buster --debian-installer-distribution daily --bootloaders syslinux
     lb build
