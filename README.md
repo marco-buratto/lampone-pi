@@ -28,7 +28,7 @@ The qemu box is not required if you can manage to set up a qemu installation and
 
 You can use the VirtualBox GUI as you are used to, from now on.
 
-![qemu box](vbqemu.setup/img/vnoxqemu.boot.png)
+
 
 **Use the qemu box: launch the Debian arm64 system on qemu**
 
@@ -37,12 +37,14 @@ Within VirtualBox, open a terminal and launch the qemu emulation (as vagrant use
     cd qemu/
     ./run.sh 
 
+![qemu box](vbqemu.setup/img/vnoxqemu.boot.png)
+
 For booting the Debian arm64 system, on the qemu efi terminal give:
 
     FS0:
     cd EFI/debian
     grubaa64.efi
 
-![debian arm](vbqemu.setup/img/debian.arm.png)
+Log in as root (password: *password*) and you are ready to live-build.
 
-Root password: *password*.
+![debian arm](vbqemu.setup/img/debian.arm.png)
