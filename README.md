@@ -74,4 +74,10 @@ Finally, on the qemu host:
 \
 Live build: create a ISO for a generic live Debian arm64 system**
 
-[...]
+Live building a minimal OS is now trivial:
+
+    mkdir live
+    cd live/
+
+    lb config --distribution buster --debian-installer-distribution daily
+    lb build
