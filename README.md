@@ -22,9 +22,4 @@ This procedure automates the installation of a Virtualbox environment (Debian Bu
  - network host to guest: 127.0.0.1:2222 for SSH --> root | password
  - VirtualBox user: vagrant | vagrant
 
-*Vagrant commands:*
- - vagrant halt 
- - vagrant up 
- - vagrant suspend
- - vagrant resume
- - destroy everything: vagrant destroy -f
+You can use the VirtualBox GUI as you are used to, from now on.
