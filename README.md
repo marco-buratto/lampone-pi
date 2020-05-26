@@ -36,6 +36,8 @@ Within VirtualBox, open a terminal and launch the qemu emulation (as vagrant use
 
     cd qemu/
     ./run.sh 
+ 
+A bind from port 22 of the qemu system and port 10022 of the vbox system is created, in order to be able to perform ssh and scp, see later.
 
 ![qemu box](vbqemu.setup/img/vnoxqemu.boot.png)
 
