@@ -7,7 +7,7 @@ Live, readonly Debian arm64 port for the Raspberry Pi 3.
 
 **Install the qemu box**
 
-This procedure automates the installation of a VirtualBox environment (Debian Buster x86_64) in which a qemu installation of Debian Buster arm64 is present. The "qemu box" will be used to *build a live image of Debian Buster for arm64* and then write the image to a SD card in a way it is compatible with a Raspberry Pi.
+This procedure automates the installation of a VirtualBox environment (Debian Buster x86_64) in which a qemu installation of Debian Buster arm64 is present. The "qemu box" will be used to *build a live image of Debian Buster for arm64* and then *write the image* to a SD card in a way it is compatible with a Raspberry Pi.
 The qemu box is not required if you can manage to set up a qemu installation and run the *lampone-install.sh* within a Linux box (see later on).
 
 *Requirements* (you need to install the following prerequisites in your operating system before running the "qemu box" installation):
