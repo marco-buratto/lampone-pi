@@ -85,7 +85,7 @@ Live building a minimal OS is now trivial; on the qemu system:
     
     dhclient
 
-    lb config --distribution buster --debian-installer-distribution daily --bootloaders syslinux
+    lb config --distribution buster 
     lb build
     
 Finally, we move the live image from the qemu host to the vbox one; from the vbox host:
