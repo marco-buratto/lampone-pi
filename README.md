@@ -78,7 +78,7 @@ Finally, on the qemu host:
 \
 Live build: create a ISO for a generic live Debian arm64 system**
 
-Live building a minimal OS is now trivial:
+Live building a minimal OS is now trivial; on the qemu system:
 
     mkdir live
     cd live/
@@ -87,3 +87,7 @@ Live building a minimal OS is now trivial:
 
     lb config --distribution buster --debian-installer-distribution daily --bootloaders syslinux
     lb build
+    
+Finally, we move the live image from the qemu host to the vbox one; from the vbox host:
+
+    scp -P 10022 root@127.0.0.1:/root/live/live-image-arm64.hybrid.iso .
