@@ -171,11 +171,17 @@ function System_prepareQemuFiles()
 
     cat >/home/vagrant/qemu/run.sh<<EOF
 if [ -f hda.img ] && [ -f QEMU_EFI.fd ]; then
-    qemu-system-aarch64 -m 2048 -M virt -cpu cortex-a72 -smp 2 -serial stdio -bios QEMU_EFI.fd -hda hda.img
+    qemu-system-aarch64 -m 2048 -M virt -cpu cortex-a72 -smp 2 -serial stdio -bios QEMU_EFI.fd -hda hda.img -netdev user,id=net0,hostfwd=tcp::10022-:22 -device virtio-net-device,netdev=net0
 else
     exit 1
 fi
 EOF
+
+    if [ -f live-build2019031131_all.deb ]; then
+        mv live-build2019031131_all.deb /home/vagrant/
+    else
+        exit 1
+    fi
 
     chown vagrant:vagrant /home/vagrant/qemu/*
     chmod +x /home/vagrant/qemu/run.sh

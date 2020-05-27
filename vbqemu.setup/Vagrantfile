@@ -53,14 +53,15 @@ Vagrant.configure("2") do |config|
     #    # Install.
     #    qemu-system-aarch64 -m 2048 -M virt -cpu cortex-a72 -smp 2 -hda hda.img -serial stdio -bios /usr/share/QEMU_EFI.fd -drive file=debian-10.4.0-arm64-netinst.iso,id=cdrom,if=none,media=cdrom -device virtio-scsi-device -device scsi-cd,drive=cdrom
 
-    vm.vm.provision "file", source: "hda.zip", destination: "/tmp/hda.zip"
-    vm.vm.provision "file", source: "QEMU_EFI.fd", destination: "/tmp/QEMU_EFI.fd"
+    vm.vm.provision "file", source: "hda.zip", destination: "/tmp/"
+    vm.vm.provision "file", source: "QEMU_EFI.fd", destination: "/tmp/"
+    vm.vm.provision "file", source: "../live-build2019031131_all.deb", destination: "/tmp/"
 
     vm.vm.provision "shell" do |s|
       s.path = "bootstrap.sh"
       s.args = ["--action", "install"]
     end
-	
-    vm.vm.provision "reload" # reboot the machine.	
+
+    vm.vm.provision "reload" # reboot the machine.
   end
 end
