@@ -62,15 +62,17 @@ A patched live-build is needed for a correct live-building. The .deb package of 
 On the qemu system we "start the network" and modify the sshd config for root user to be able to accept direct connections:
 
     dhclient
-    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config; systemctl restart ssh
+    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config 
+    systemctl restart ssh
     
 Now on the vbox system:
 
-     scp -P 10022 /home/vagrant/live-build2019031131_all.deb root@127.0.0.1:/tmp
+    scp -P 10022 /home/vagrant/live-build2019031131_all.deb root@127.0.0.1:/tmp
 
 Finally, on the qemu host:
 
-    dpkg -i /tmp/live-build2019031131_all.deb; apt install -fy
+    dpkg -i /tmp/live-build2019031131_all.deb
+    apt install -fy
 
 **\
 \
