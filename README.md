@@ -7,10 +7,10 @@ Live, readonly Debian arm64 port for the Raspberry Pi 3.
 
 **Install the qemu box**
 
-This procedure automates the installation of a VirtualBox environment (Debian Buster x86_64) in which a qemu installation of Debian Buster arm64 is present. The "qemu box" will be used to *build a live image of Debian Buster for arm64* and then *write the image* to a SD card in a way it is compatible with a Raspberry Pi.
+This procedure automates the installation of a VirtualBox environment (Debian Buster x86_64) in which a qemu installation of Debian Buster arm64 is present. The qemu box will be used to *build a live image of Debian Buster for arm64* and then *write the image* to a SD card in a way it is compatible with a Raspberry Pi.
 The qemu box is not required if you can manage to set up a qemu installation and run the *lampone-install.sh* within a Linux box (see later on).
 
-*Requirements* (you need to install the following prerequisites in your operating system before running the "qemu box" installation):
+*Requirements* (you need to install the following prerequisites in your operating system before running the qemu box installation):
  - VirtualBox (with guest additions) 
  - Vagrant
  - from a terminal: *vagrant plugin install vagrant-reload*
@@ -34,12 +34,13 @@ You can use the VirtualBox GUI as you are used to, from now on.
 \
 Use the qemu box: launch the Debian arm64 system on qemu**
 
-Within VirtualBox, open a terminal and launch the qemu emulation (as vagrant user):
+Within the vbox system, open a terminal and launch the qemu emulation (as vagrant user):
 
     cd qemu/
     ./run.sh 
- 
-A bind from port 22 of the qemu system and port 10022 of the vbox system is created, in order to be able to perform ssh and scp, see later.
+    
+Remember to enable the shared clipboard on VirtualBox to allow copy & pasting. 
+A bind from port 22 of the qemu system and port 10022 of the vbox system is created, in order to be able to perform ssh and scp.
 
 ![qemu box](vbqemu.setup/img/vnoxqemu.boot.png)
 
@@ -49,7 +50,7 @@ For booting the Debian arm64 system, on the qemu efi terminal give:
     cd EFI/debian
     grubaa64.efi
 
-Log in as root (password: *password*) and you are ready to live-build.
+Log in as root (password: *password*).
 
 ![debian arm](vbqemu.setup/img/debian.arm.png)
 
@@ -57,7 +58,7 @@ Log in as root (password: *password*) and you are ready to live-build.
 \
 Prepare the qemu system for the live building (setup once)**
 
-A patched live-build is needed for a correct live-building. The .deb package of live-build patched by our Team has been already copied onto the vbox system, so now we have to copy and install it onto the qemu system.
+A patched live-build program is needed for a correct live-building. The .deb package of live-build patched by our Team has been already copied onto the vbox system, so now we have to copy and install it onto the qemu system.
 
 On the qemu system we "start the network" and modify the sshd config for root user to be able to accept direct connections:
 
@@ -69,7 +70,7 @@ Now on the vbox system:
 
     scp -P 10022 /home/vagrant/live-build2019031131_all.deb root@127.0.0.1:/tmp
 
-Finally, on the qemu host:
+Finally, on the qemu host, install the package and its dependencies:
 
     dpkg -i /tmp/live-build2019031131_all.deb
     apt install -fy
@@ -78,7 +79,7 @@ Finally, on the qemu host:
 \
 Live build: create a ISO for a generic live Debian arm64 system**
 
-Live building a minimal OS is now trivial; on the qemu system:
+Live building a minimal test OS is now trivial; on the qemu system:
 
     mkdir live
     cd live/
@@ -90,4 +91,10 @@ Live building a minimal OS is now trivial; on the qemu system:
     
 Finally, we move the live image from the qemu host to the vbox one; from the vbox host:
 
-    scp -P 10022 root@127.0.0.1:/root/live/live-image-arm64.hybrid.iso .
+    scp -P 10022 root@127.0.0.1:/root/live/live-image-arm64.hybrid.iso
+    
+**\
+\
+Writing the live image onto a SD card**
+
+[...]
