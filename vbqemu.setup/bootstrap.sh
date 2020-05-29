@@ -37,7 +37,7 @@ function System_run()
             System_installDependencies
 
             System_installQemu
-            System_prepareQemuFiles
+            System_prepareFiles
             System_makeUp
 
             echo "System installation complete."
@@ -116,7 +116,7 @@ function System_installDependencies()
     apt update
 
     printf "\n* Installing system dependencies...\n"
-    DEBIAN_FRONTEND=noninteractive apt install -y dos2unix git locales locales-all openssh-server unzip wget # base.
+    DEBIAN_FRONTEND=noninteractive apt install -y dos2unix git locales locales-all openssh-server unzip wget xorriso # base.
     DEBIAN_FRONTEND=noninteractive apt install -y gdm3 gnome-menus gnome-session gnome-shell gnome-terminal # gnome minimal.
 
     apt clean
@@ -149,7 +149,7 @@ EOF
 
 
 
-function System_prepareQemuFiles()
+function System_prepareFiles()
 {
     printf "\n* Finalizing qemu environment...\n"
 
@@ -179,6 +179,14 @@ EOF
 
     if [ -f live-build2019031131_all.deb ]; then
         mv live-build2019031131_all.deb /home/vagrant/
+    else
+        exit 1
+    fi
+
+    if [ -d installer ]; then
+        mv installer /sbin/lamponepi-installer
+        chmod +x /sbin/lamponepi-installer/lamponepi-install.sh
+        ln -s /sbin/lamponepi-installer/lamponepi-install.sh /sbin/lamponepi-install.sh
     else
         exit 1
     fi
