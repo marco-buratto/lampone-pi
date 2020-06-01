@@ -53,9 +53,7 @@ sdram_freq=400
 
 [pi3]
 
-# These are not applied automatically? Needed to use respective upstream drivers.
-dtoverlay=vc4-kms-v3d,cma-default
-dtoverlay=dwc2
+dtoverlay=disable-vc4
 
 [pi4]
 
