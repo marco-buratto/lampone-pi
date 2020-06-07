@@ -1,10 +1,10 @@
-# Lampone Pi
+# Lampone Pi, the "qemu system"
 
-Live, readonly Debian arm64 port for the Raspberry Pi.
+Lampone Pi is a live Debian arm64 port for the Raspberry Pi.
 
-You can download the pre-built image from ...
+You can download the pre-built image from https://www.lamponepi.com/
 
-Here are the instructions on how to build your own arm64 Debian-based live image and then write the resulting ISO file onto a SD card so that it's compliant to be booted by a Raspberry Pi. In order to simplify the building stage, a "qemu box" is used in this howto.
+Here are the instructions on how to build a Lampone Pi Debian-based live image and then write the resulting ISO file onto a SD card so that it's compliant to be booted by a Raspberry Pi. In order to simplify the building stage, a "qemu box" is used in this howto.
 
 
 ## qemu box
@@ -136,5 +136,3 @@ Now we write the live image to the SD card in a way it is compatible with a Rasp
     lamponepi-install.sh --iso /home/vagrant/live-image-arm64.hybrid.iso --device /dev/sdc
     
 Please note. Reboot the vbox system (and redo the write) in case of write failures or system written incorrectly: VirtualBox seems not so stable in handling USB devices.    
-    
-Please note. The resulting partitioning scheme is *liveng* compliant (https://liveng.readthedocs.io/en/latest/) - the same used by in Resilient Linux with the minimum possible modifications for the Pi porting. The liveng partitioning scheme allows programs and kernel updates with a readonly system partition. As of now the kernel update feature is not yet ported on the Pi, juststay tuned.
