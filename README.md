@@ -2,7 +2,7 @@
 
 Lampone Pi is a live Debian arm64 port for the Raspberry Pi.
 
-You can download the pre-built image from https://www.lamponepi.com/
+You can download the pre-built image from https://www.lamponepi.com.
 
 Here are the instructions on how to build a Lampone Pi Debian-based live image and then write the resulting ISO file onto a SD card so that it's compliant to be booted by a Raspberry Pi. In order to simplify the building stage, a "qemu box" is used in this howto.
 
@@ -12,7 +12,6 @@ Here are the instructions on how to build a Lampone Pi Debian-based live image a
 **Install the qemu box**
 
 This procedure automates the installation of a VirtualBox environment (Debian Buster x86_64) in which a qemu installation of Debian Buster arm64 is present. The qemu box will be used to *build a live image of Debian Buster for arm64* and then *write the image* to a SD card in a way it is compatible with a Raspberry Pi.
-The qemu box is not required if you can manage to set up a qemu installation and run the *lamponepi-install.sh* within a Linux box.
 
 *Requirements* (you need to install the following prerequisites in your operating system before running the qemu box installation):
  - VirtualBox (with guest additions) 
@@ -22,7 +21,7 @@ The qemu box is not required if you can manage to set up a qemu installation and
 *Run the installation:*
 
  - clone or download this GitHub repository 
- - *cd /path/to/lampone-pi*
+ - *cd /path/to/lamponepi.qemubox*
  - *cd vbqemu.setup* 
  - *vagrant up*
 
@@ -64,6 +63,8 @@ Prepare the qemu system for the live building (setup once)**
 
 A patched live-build program is needed for a correct live-building. The .deb package of live-build patched by our Team has been already copied onto the vbox system, so now we have to copy and install it onto the qemu system.
 
+Also, the Lampone Pi live-build "scheleton" is needed of course.
+
 On the qemu system we "start the network" and modify the sshd config for root user to be able to accept direct connections:
 
     dhclient
@@ -72,28 +73,29 @@ On the qemu system we "start the network" and modify the sshd config for root us
     
 Now on the vbox system:
 
-    scp -P 10022 /home/vagrant/live-build2019031131_all.deb root@127.0.0.1:/tmp
+    tar -xf lamponepi.live-build.tar
+    cd lamponepi.live-build
+    
+    scp -P 10022 live-build2019031131_all.deb root@127.0.0.1:/tmp
+    scp -r  -P 10022 live-build root@127.0.0.1:/tmp
 
 Finally, on the qemu host, install the package and its dependencies:
 
-    dpkg -i /tmp/live-build2019031131_all.deb
-    apt install -fy
+    dpkg -i /tmp/live-build2019031131_all.deb; apt install -fy
+    mv /tmp/live-build .
 
 **\
 \
 Live build: create a ISO for a generic live Debian arm64 system**
 
-Live building a minimal test OS is now trivial; on the qemu system:
+Live-building is now trivial; on the qemu system:
 
-    mkdir live
-    cd live/
-    
     dhclient
-
-    lb config --distribution buster 
+    
+    cd live-build
     lb build
     
-Finally, we move the live image from the qemu host to the vbox one; from the vbox host:
+Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one; from the vbox host:
 
     scp -P 10022 root@127.0.0.1:/root/live/live-image-arm64.hybrid.iso .
     
