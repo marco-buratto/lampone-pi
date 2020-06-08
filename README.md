@@ -97,7 +97,7 @@ Live-building is now trivial; on the qemu system:
     
 Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one; from the vbox host:
 
-    scp -P 10022 root@127.0.0.1:/root/live/live-image-arm64.hybrid.iso .
+    scp -P 10022 root@127.0.0.1:/root/live-build/live-image-arm64.hybrid.iso .
     
 **\
 \
