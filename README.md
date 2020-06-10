@@ -93,6 +93,7 @@ Live-building is now trivial; on the qemu system:
     dhclient
     
     cd live-build
+    lb config
     lb build
     
 Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one; from the vbox host:
