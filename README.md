@@ -61,28 +61,17 @@ Log in as root (password: *password*).
 \
 Prepare the qemu system for the live building (setup once)**
 
-A patched live-build program is needed for a correct live-building. The .deb package of live-build patched by our Team has been already copied onto the vbox system, so now we have to copy and install it onto the qemu system.
+A patched live-build program is needed for a correct live-building. Also, the Lampone Pi live-build "scheleton" is needed of course.
 
-Also, the Lampone Pi live-build "scheleton" is needed of course.
-
-On the qemu system we "start the network" and modify the sshd config for root user to be able to accept direct connections:
+On the qemu host, we fetch and install the aforementioned dependencies:
 
     dhclient
-    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config 
-    systemctl restart ssh
     
-Now on the vbox system:
-
-    tar -xf lamponepi.live-build.tar
-    cd lamponepi.live-build
+    apt update
+    apt install -y git
+    git clone https://github.com/marco-buratto/lamponepi.live-build.git
     
-    scp -P 10022 live-build2019031131_all.deb root@127.0.0.1:/tmp
-    scp -r  -P 10022 live-build root@127.0.0.1:/tmp
-
-Finally, on the qemu host, install the package and its dependencies:
-
-    dpkg -i /tmp/live-build2019031131_all.deb; apt install -fy
-    mv /tmp/live-build .
+    dpkg -i lamponepi.live-build/live-build*.deb; apt install -fy
 
 **\
 \
@@ -92,12 +81,15 @@ Live-building is now trivial; on the qemu system:
 
     dhclient
     
-    cd live-build
+    cd lamponepi.live-build/live-build
     lb config
     lb build
     
 Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one; from the vbox host:
-
+    
+    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config 
+    systemctl restart ssh
+    
     scp -P 10022 root@127.0.0.1:/root/live-build/live-image-arm64.hybrid.iso .
     
 **\
