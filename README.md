@@ -85,11 +85,13 @@ Live-building is now trivial; on the qemu system:
     lb config
     lb build
     
-Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one; from the vbox host:
+Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one: from the qemu host:
     
     sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config 
     systemctl restart ssh
     
+And finally from the vbox host:
+
     scp -P 10022 root@127.0.0.1:/root/live-build/lamponepi.iso .
     
 **\
