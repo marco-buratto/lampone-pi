@@ -75,7 +75,7 @@ On the qemu host, we fetch and install the aforementioned dependencies:
 
 **\
 \
-Live build: create a ISO for a generic live Debian arm64 system**
+Live build: create the Lampone Pi live arm64 ISO**
 
 Live-building is now trivial; on the qemu system:
 
