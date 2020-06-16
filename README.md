@@ -90,7 +90,7 @@ Finally, once the build task has been successfully accomplished, we move the liv
     sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config 
     systemctl restart ssh
     
-    scp -P 10022 root@127.0.0.1:/root/live-build/live-image-arm64.hybrid.iso .
+    scp -P 10022 root@127.0.0.1:/root/live-build/lamponepi.iso .
     
 **\
 \
@@ -128,6 +128,6 @@ Within the vbox system, open a terminal as root (*su -*) and use *fdisk -l* for 
 
 Now we write the live image to the SD card in a way it is compatible with a Raspberry Pi's booting:
 
-    lamponepi-install.sh --iso /home/vagrant/live-image-arm64.hybrid.iso --device /dev/sdc
+    lamponepi-install.sh --iso /home/vagrant/lamponepi.iso --device /dev/sdc
     
 Please note. Reboot the vbox system (and redo the write) in case of write failures or system written incorrectly: VirtualBox seems not so stable in handling USB devices.    
