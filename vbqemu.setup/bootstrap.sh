@@ -21,7 +21,7 @@ function System()
 }
 
 # ##################################################################################################################################################
-# Public 
+# Public
 # ##################################################################################################################################################
 
 #
@@ -73,7 +73,7 @@ function System_rootPasswordConfig()
 {
     printf "\n* Setting a password for root...\n"
 
-    printf "$1\n$1" | passwd 
+    printf "$1\n$1" | passwd
 }
 
 
@@ -81,9 +81,9 @@ function System_rootPasswordConfig()
 function System_sshConfig()
 {
     printf "\n* Enabling direct SSH with password auth for root...\n"
- 
+
     sed -i 's/^PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config	
+    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
     systemctl restart ssh
 }
 
@@ -112,7 +112,7 @@ function System_installDependencies()
     printf "\n* Preparing the environment..."
 
     sed -i 's/^deb cdrom/#deb cdrom/' /etc/apt/sources.list
-    sed -i 's/main$/main contrib non-free/g' /etc/apt/sources.list	
+    sed -i 's/main$/main contrib non-free/g' /etc/apt/sources.list
     apt update
 
     printf "\n* Installing system dependencies...\n"
@@ -154,6 +154,8 @@ function System_prepareFiles()
     printf "\n* Finalizing qemu environment...\n"
 
     cd /tmp
+
+	# qemu.
     if [ -f hda.zip ]; then
         mkdir /home/vagrant/qemu
 
@@ -177,14 +179,10 @@ else
 fi
 EOF
 
-    if [ -f live-build2019031131_all.deb ]; then
-        mv live-build2019031131_all.deb /home/vagrant/
-    else
-        exit 1
-    fi
-
-    if [ -d installer ]; then
-        mv installer /sbin/lamponepi-installer
+    # Installer.
+    git clone https://github.com/marco-buratto/lamponepi.installer.git
+    if [ -d lamponepi.installer ]; then
+        mv lamponepi.installer /sbin/lamponepi-installer
         chmod +x /sbin/lamponepi-installer/lamponepi-install.sh
         ln -s /sbin/lamponepi-installer/lamponepi-install.sh /sbin/lamponepi-install.sh
     else
