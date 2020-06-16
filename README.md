@@ -92,7 +92,7 @@ Finally, once the build task has been successfully accomplished, we move the liv
     
 And finally from the vbox host:
 
-    scp -P 10022 root@127.0.0.1:/root/live-build/lamponepi.iso .
+    scp -P 10022 root@127.0.0.1:/root/live-build/live-image-arm64.hybrid.iso lamponepi.iso
     
 **\
 \
