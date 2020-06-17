@@ -85,7 +85,7 @@ Live-building is now trivial; on the qemu system:
     lb config
     lb build
     
-Finally, once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one: from the qemu host:
+Once the build task has been successfully accomplished, we move the live image from the qemu host to the vbox one: from the qemu host:
     
     sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config 
     systemctl restart ssh
